@@ -8,20 +8,21 @@ metadata:
     traefik.http.routers.pihole.entrypoints: "websecure"
     traefik.http.routers.pihole.tls.certresolver: "porkbun"
     traefik.http.services.pihole.loadbalancer.server.port: "80"
+  annotations:
+    io.podman.annotations.port-handler: "pasta"
 spec:
-  hostNetwork: true
   containers:
     - name: pihole
       image: docker.io/pihole/pihole:latest
-      # ports:
-      #   - containerPort: 53
-      #     hostPort: 53
-      #     hostIP: 10.0.0.67
-      #     protocol: TCP
-      #   - containerPort: 53
-      #     hostPort: 53
-      #     hostIP: 10.0.0.67
-      #     protocol: UDP
+      ports:
+        - containerPort: 53
+          hostPort: 53
+          hostIP: 10.0.0.67
+          protocol: TCP
+        - containerPort: 53
+          hostPort: 53
+          hostIP: 10.0.0.67
+          protocol: UDP
       env:
         - name: TZ
           value: "Europe/Berlin"
