@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-config
+data:
+  traefik.yml: |
+    global:
+      checkNewVersion: false
+      sendAnonymousUsage: false
+    entryPoints:
+      web:
+        address: ":80"
+      websecure:
+        address: ":443"
+    api:
+      dashboard: true
+    log:
+      level: INFO
+      filePath: /var/log/traefik/traefik.log
+      format: json
+    accessLog:
+      filePath: /var/log/traefik/access.log
+      format: json
+    providers:
+      docker:
+        endpoint: "unix:///var/run/docker.sock"
+        exposedByDefault: false
+    certificatesResolvers:
+      porkbun:
+        acme:
+          email: system@lohrenz.me
+          storage: /etc/traefik/acme.json
+          dnsChallenge:
+            provider: porkbun
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: traefik-stack
+  labels:
+    traefik.enable: "true"
+    traefik.http.routers.dashboard.rule: "Host(`traefik.minipve-prod.home.lohrenz.me`)"
+    traefik.http.routers.dashboard.entrypoints: "websecure"
+    traefik.http.routers.dashboard.tls.certresolver: "porkbun"
+    traefik.http.routers.dashboard.service: "api@internal"
+spec:
+  containers:
+    - name: traefik
+      image: docker.io/library/traefik:v3
+      env:
+        - name: PORKBUN_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: porkbun_api_key
+              key: secret
+        - name: PORKBUN_SECRET_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: porkbun_secret_key
+              key: secret
+      volumeMounts:
+        - name: podman-sock
+          mountPath: /var/run/docker.sock
+          readOnly: true
+        - name: traefik-config
+          mountPath: /etc/traefik/traefik.yml
+          subPath: traefik.yml
+        - name: traefik-logs
+          mountPath: /var/log/traefik
+        - name: traefik-certs
+          mountPath: /etc/traefik/acme.json
+  volumes:
+    - name: podman-sock
+      hostPath:
+        path: /run/user/1000/podman/podman.sock
+        type: Socket
+    - name: traefik-config
+      configMap:
+        name: traefik-config
+    - name: traefik-logs
+      hostPath:
+        path: /home/malte/infra/data/traefik/logs
+        type: Directory
+    - name: traefik-certs
+      hostPath: 
+        path: /home/malte/infra/data/traefik/acme.json
+        type: File
+      
