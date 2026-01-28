@@ -1,0 +1,11 @@
+[Unit]
+Description=Traefik Proxy Stack
+
+[Kube]
+Yaml=/home/malte/infra/traefik-stack.yaml
+Network=proxy
+PublishPort=80:80
+PublishPort=443:443
+
+[Install]
+WantedBy=default.target

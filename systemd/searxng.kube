@@ -1,0 +1,9 @@
+[Unit]
+Description=SearXNG Stack
+
+[Kube]
+Yaml=/home/malte/infra/searxng-stack.yaml
+Network=proxy
+
+[Install]
+WantedBy=default.target

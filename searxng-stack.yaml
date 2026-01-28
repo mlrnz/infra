@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: searxng-config
+data:
+  settings.yml: |
+    use_default_settings: true
+    server:
+      port: 8080
+      bind_address: "0.0.0.0"
+      secret_key: "SEARXNG_SECRET_KEY" # We will use an env var for this
+    redis:
+      url: redis://localhost:6379/0
+    search:
+      safe_search: 0
+    ui:
+      static_use_hash: true
+    outgoing:
+      request_timeout: 3.5
+      max_request_timeout: 8.0
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: searxng-stack
+  labels:
+    traefik.enable: "true"
+    traefik.http.routers.searxng.rule: "Host(`search.home.lohrenz.me`)"
+    traefik.http.routers.searxng.entrypoints: "websecure"
+    traefik.http.routers.searxng.tls.certresolver: "porkbun"
+    traefik.http.services.searxng.loadbalancer.server.port: "8080"
+spec:
+  containers:
+    - name: redis
+      image: docker.io/library/redis:alpine
+      command: ["redis-server", "--save", "", "--appendonly", "no"]
+
+    - name: searxng
+      image: docker.io/searxng/searxng:latest
+      env:
+        - name: SEARXNG_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: searx_secret
+              key: secret
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/searxng/settings.yml
+          subPath: settings.yml
+
+  volumes:
+    - name: config-volume
+      configMap:
+        name: searxng-config

@@ -1,0 +1,6 @@
+minipve-docker/
+my-secrets.yaml
+secrets.yaml
+acme.json
+*.log
+*.env

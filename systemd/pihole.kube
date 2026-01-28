@@ -1,0 +1,11 @@
+[Unit]
+Description=PiHole Stack
+
+[Kube]
+Yaml=/home/malte/infra/pihole-stack.yaml
+Network=proxy
+PublishPort=53:53/udp
+PublishPort=53:53/tcp
+
+[Install]
+WantedBy=default.target
