@@ -19,5 +19,5 @@ spec:
   volumes:
     - name: data-volume
       hostPath:
-        path: /home/malte/infra/vaultwarden
+        path: /home/malte/infra/data/vaultwarden
         type: Directory
