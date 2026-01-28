@@ -29,7 +29,7 @@ data:
       porkbun:
         acme:
           email: system@lohrenz.me
-          storage: /acme.json
+          storage: /etc/traefik/acme.json
           dnsChallenge:
             provider: porkbun
 ---
@@ -62,26 +62,27 @@ spec:
         - name: podman-sock
           mountPath: /var/run/docker.sock
           readOnly: true
-        - name: traefik-logs
-          mountPath: /var/log/traefik
         - name: traefik-config
           mountPath: /etc/traefik/traefik.yml
           subPath: traefik.yml
-        - name: traefik-certs-pvc
-          mountPath: /acme.json
+        - name: traefik-logs
+          mountPath: /var/log/traefik
+        - name: traefik-certs
+          mountPath: /etc/traefik/acme.json
   volumes:
     - name: podman-sock
       hostPath:
         path: /run/user/1000/podman/podman.sock
         type: Socket
-    - name: traefik-logs
-      hostPath:
-        path: /var/log/traefik
-        type: Directory
     - name: traefik-config
       configMap:
         name: traefik-config
-    - name: traefik-certs-pvc
-      persistentVolumeClaim:
-        claimName: traefik-certs-pvc
+    - name: traefik-logs
+      hostPath:
+        path: /home/malte/infra/data/traefik/logs
+        type: Directory
+    - name: traefik-certs
+      hostPath: 
+        path: /home/malte/infra/data/traefik/acme.json
+        type: File
       

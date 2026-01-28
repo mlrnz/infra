@@ -49,9 +49,9 @@ spec:
   volumes:
     - name: pihole-config
       hostPath:
-        path: /home/malte/infra/pihole
+        path: /home/malte/infra/data/pihole
         type: Directory
     - name: unbound-config
       hostPath:
-        path: /home/malte/infra/unbound
+        path: /home/malte/infra/data/unbound
         type: Directory
