@@ -1,0 +1,9 @@
+[Unit]
+Description=Vaultwarden Stack
+
+[Kube]
+Yaml=/home/malte/infra/vaultwarden-stack.yaml
+Network=proxy
+
+[Install]
+WantedBy=default.target

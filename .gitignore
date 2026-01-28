@@ -1,4 +1,5 @@
 minipve-docker/
+data/
 my-secrets.yaml
 secrets.yaml
 acme.json
