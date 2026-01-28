@@ -9,6 +9,7 @@ metadata:
     traefik.http.routers.pihole.tls.certresolver: "porkbun"
     traefik.http.services.pihole.loadbalancer.server.port: "80"
 spec:
+  hostNetwork: true
   containers:
     - name: pihole
       image: docker.io/pihole/pihole:latest
