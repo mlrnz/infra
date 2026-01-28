@@ -2,7 +2,7 @@
 Description=Traefik Proxy Stack
 
 [Kube]
-Yaml=/home/malte/infra/traefik-stack.yaml
+Yaml=/home/malte/infra/stacks/traefik-stack.yaml
 Network=proxy
 PublishPort=80:80
 PublishPort=443:443

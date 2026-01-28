@@ -2,7 +2,7 @@
 Description=SearXNG Stack
 
 [Kube]
-Yaml=/home/malte/infra/searxng-stack.yaml
+Yaml=/home/malte/infra/stacks/searxng-stack.yaml
 Network=proxy
 
 [Install]

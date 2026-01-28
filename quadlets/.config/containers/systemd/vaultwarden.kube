@@ -2,7 +2,7 @@
 Description=Vaultwarden Stack
 
 [Kube]
-Yaml=/home/malte/infra/vaultwarden-stack.yaml
+Yaml=/home/malte/infra/stacks/vaultwarden-stack.yaml
 Network=proxy
 
 [Install]

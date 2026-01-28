@@ -1,2 +1,4 @@
 #!/bin/bash
-stow -v -t ~ stow
+
+sudo apt install stow -y
+stow -v -t ~ quadlets
