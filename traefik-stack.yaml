@@ -43,7 +43,7 @@ data:
         endpoint: "unix:///var/run/docker.sock"
         exposedByDefault: false
       file:
-        filename: /etc/traefik/pihole.yml
+        directory: /etc/traefik/dynamic
         watch: true
     certificatesResolvers:
       porkbun:
@@ -86,7 +86,7 @@ spec:
           mountPath: /etc/traefik/traefik.yml
           subPath: traefik.yml
         - name: traefik-config
-          mountPath: /etc/traefik/pihole.yml
+          mountPath: /etc/traefik/dynamic/pihole.yml
           subPath: pihole.yml
         - name: traefik-logs
           mountPath: /var/log/traefik
