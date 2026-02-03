@@ -4,10 +4,10 @@ metadata:
   name: technitium-stack
   labels:
     traefik.enable: 'true'
-    traefik.http.routers.pihole.rule: 'Host(`technitium.home.lohrenz.me`)'
-    traefik.http.routers.pihole.entrypoints: 'websecure'
-    traefik.http.routers.pihole.tls.certresolver: 'porkbun'
-    traefik.http.services.pihole.loadbalancer.server.port: '5380'
+    traefik.http.routers.technitium.rule: 'Host(`technitium.home.lohrenz.me`)'
+    traefik.http.routers.technitium.entrypoints: 'websecure'
+    traefik.http.routers.technitium.tls.certresolver: 'porkbun'
+    traefik.http.services.technitium.loadbalancer.server.port: '5380'
 spec:
   containers:
     - name: technitium
