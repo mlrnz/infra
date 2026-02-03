@@ -6,10 +6,10 @@ Description=Technitium Stack
 Yaml=/home/malte/infra/stacks/technitium-stack.yaml
 
 # Network options
-PublishPort=53:53
+# Host networking is defined in the YAML (hostNetwork: true)
 
-# Other options
-Network=proxy
+[Service]
+TimeoutStopSec=900
 
 [Install]
 WantedBy=default.target

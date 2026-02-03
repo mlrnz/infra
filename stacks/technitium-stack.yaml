@@ -9,21 +9,28 @@ metadata:
     traefik.http.routers.technitium.tls.certresolver: 'porkbun'
     traefik.http.services.technitium.loadbalancer.server.port: '5380'
 spec:
+  hostNetwork: true
   containers:
     - name: technitium
       image: docker.io/technitium/dns-server:latest
-      ports:
-        - containerPort: 53
-          hostPort: 53
-          protocol: UDP
-        - containerPort: 53
-          hostPort: 53
-          protocol: TCP
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          add:
+            - NET_BIND_SERVICE
       env:
         - name: TZ
           value: 'Europe/Berlin'
         - name: DNS_SERVER_DOMAIN
           value: 'technitium.home.lohrenz.me'
+        - name: DNS_SERVER_WEB_SERVICE_ENABLE_HTTP
+          value: 'true'
+        - name: DNS_SERVER_WEB_SERVICE_USE_SELF_SIGNED_CERT
+          value: 'true'
+        - name: DNS_SERVER_RECURSION
+          value: 'AllowOnlyForPrivateNetworks'
+        - name: DNS_SERVER_FORWARDERS
+          value: ''
       volumeMounts:
         - name: data
           mountPath: /etc/dns
