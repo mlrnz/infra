@@ -56,11 +56,11 @@ kind: Pod
 metadata:
   name: traefik-stack
   labels:
-    traefik.enable: "true"
-    traefik.http.routers.dashboard.rule: "Host(`traefik.minipve-prod.home.lohrenz.me`)"
-    traefik.http.routers.dashboard.entrypoints: "websecure"
-    traefik.http.routers.dashboard.tls.certresolver: "porkbun"
-    traefik.http.routers.dashboard.service: "api@internal"
+    traefik.enable: 'true'
+    traefik.http.routers.dashboard.rule: 'Host(`traefik.minipve-prod.home.lohrenz.me`)'
+    traefik.http.routers.dashboard.entrypoints: 'websecure'
+    traefik.http.routers.dashboard.tls.certresolver: 'porkbun'
+    traefik.http.routers.dashboard.service: 'api@internal'
 spec:
   containers:
     - name: traefik
@@ -103,7 +103,6 @@ spec:
         path: /home/malte/infra/data/traefik/logs
         type: Directory
     - name: traefik-certs
-      hostPath: 
+      hostPath:
         path: /home/malte/infra/data/traefik/acme.json
         type: File
-      

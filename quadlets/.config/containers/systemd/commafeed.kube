@@ -1,9 +1,9 @@
 [Unit]
-Description=SearXNG Stack
+Description=Commafeed Stack
 
 [Kube]
 # Base options
-Yaml=/home/malte/infra/stacks/searxng-stack.yaml
+Yaml=/home/malte/infra/stacks/commafeed-stack.yaml
 
 # Other options
 Network=proxy

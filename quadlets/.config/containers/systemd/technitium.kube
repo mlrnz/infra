@@ -1,9 +1,9 @@
 [Unit]
-Description=SearXNG Stack
+Description=Technitium Stack
 
 [Kube]
 # Base options
-Yaml=/home/malte/infra/stacks/searxng-stack.yaml
+Yaml=/home/malte/infra/stacks/technitium-stack.yaml
 
 # Other options
 Network=proxy

@@ -2,8 +2,12 @@
 Description=Vaultwarden Stack
 
 [Kube]
+# Base options
 Yaml=/home/malte/infra/stacks/vaultwarden-stack.yaml
+
+# Other options
 Network=proxy
 
 [Install]
 WantedBy=default.target
+

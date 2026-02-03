@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: commafeed-stack
+  labels:
+    traefik.enable: 'true'
+    traefik.http.routers.commafeed.rule: 'Host(`commafeed.home.lohrenz.me`)'
+    traefik.http.routers.commafeed.entrypoints: 'websecure'
+    traefik.http.routers.commafeed.tls.certresolver: 'porkbun'
+    traefik.http.services.commafeed.loadbalancer.server.port: '8082'
+spec:
+  containers:
+    - name: commafeed
+      image: docker.io/arthou/commafeed:latest-h2
+      ports:
+        - containerPort: 8082
+          hostPort: 8082
+      volumeMounts:
+        - name: data-volume
+          mountPath: /commafeed/data
+
+  volumes:
+    - name: data-volume
+      hostPath:
+        path: /home/malte/infra/data/commafeed
+        type: Directory

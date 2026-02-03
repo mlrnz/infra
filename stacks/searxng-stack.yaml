@@ -26,16 +26,16 @@ kind: Pod
 metadata:
   name: searxng-stack
   labels:
-    traefik.enable: "true"
-    traefik.http.routers.searxng.rule: "Host(`search.home.lohrenz.me`)"
-    traefik.http.routers.searxng.entrypoints: "websecure"
-    traefik.http.routers.searxng.tls.certresolver: "porkbun"
-    traefik.http.services.searxng.loadbalancer.server.port: "8080"
+    traefik.enable: 'true'
+    traefik.http.routers.searxng.rule: 'Host(`search.home.lohrenz.me`)'
+    traefik.http.routers.searxng.entrypoints: 'websecure'
+    traefik.http.routers.searxng.tls.certresolver: 'porkbun'
+    traefik.http.services.searxng.loadbalancer.server.port: '8080'
 spec:
   containers:
     - name: redis
       image: docker.io/library/redis:alpine
-      command: ["redis-server", "--save", "", "--appendonly", "no"]
+      command: ['redis-server', '--save', '', '--appendonly', 'no']
 
     - name: searxng
       image: docker.io/searxng/searxng:latest

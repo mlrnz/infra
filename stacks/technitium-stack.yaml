@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: technitium-stack
+  labels:
+    traefik.enable: 'true'
+    traefik.http.routers.pihole.rule: 'Host(`technitium.home.lohrenz.me`)'
+    traefik.http.routers.pihole.entrypoints: 'websecure'
+    traefik.http.routers.pihole.tls.certresolver: 'porkbun'
+    traefik.http.services.pihole.loadbalancer.server.port: '5380'
+spec:
+  containers:
+    - name: technitium
+      image: docker.io/technitium/dns-server:latest
+      ports:
+        - containerPort: 53
+          hostPort: 53
+          protocol: UDP
+        - containerPort: 53
+          hostPort: 53
+          protocol: TCP
+      env:
+        - name: TZ
+          value: 'Europe/Berlin'
+        - name: DNS_SERVER_DOMAIN
+          value: 'technitium.home.lohrenz.me'
+      volumeMounts:
+        - name: data
+          mountPath: /etc/dns
+
+  volumes:
+    - name: data
+      hostPath:
+        path: /home/malte/infra/data/technitium
+        type: Directory

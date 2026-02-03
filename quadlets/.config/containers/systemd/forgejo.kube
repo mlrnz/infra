@@ -1,0 +1,16 @@
+[Unit]
+Description=Forgejo Stack
+
+[Kube]
+# Base options
+Yaml=/home/malte/infra/stacks/forgejo-stack.yaml
+
+# Network options
+PublishPort=2222:22
+
+# Other options
+Network=proxy
+
+[Install]
+WantedBy=default.target
+

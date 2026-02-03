@@ -3,11 +3,11 @@ kind: Pod
 metadata:
   name: vaultwarden-stack
   labels:
-    traefik.enable: "true"
-    traefik.http.routers.vaultwarden.rule: "Host(`vault.home.lohrenz.me`)"
-    traefik.http.routers.vaultwarden.entrypoints: "websecure"
-    traefik.http.routers.vaultwarden.tls.certresolver: "porkbun"
-    traefik.http.services.vaultwarden.loadbalancer.server.port: "80"
+    traefik.enable: 'true'
+    traefik.http.routers.vaultwarden.rule: 'Host(`vault.home.lohrenz.me`)'
+    traefik.http.routers.vaultwarden.entrypoints: 'websecure'
+    traefik.http.routers.vaultwarden.tls.certresolver: 'porkbun'
+    traefik.http.services.vaultwarden.loadbalancer.server.port: '80'
 spec:
   containers:
     - name: vaultwarden
